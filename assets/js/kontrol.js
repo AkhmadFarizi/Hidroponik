@@ -135,7 +135,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     var RefStatus = firebase.database().ref("KONTROL/MODE");
     var KontrolCheckbox = document.getElementById("Kontrol");
     KontrolCheckbox.addEventListener("change", function () {
-      RefStatus.set(KontrolCheckbox.checked ? 1 : 2);
+      RefStatus.set(KontrolCheckbox.checked ? 1 : 0);
     });
 
     RefStatus.on("value", function (snapshot) {
@@ -147,6 +147,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         document.getElementById("start-time").disabled = false;
         document.getElementById("end-time").disabled = false;
         document.getElementById("save-btn").disabled = false;
+        firebase.database().ref("KONTROL/Waterpump").set(0);
       }
       else{
         document.getElementById("save-btn").disabled = true;
@@ -168,8 +169,6 @@ firebase.auth().onAuthStateChanged(function (user) {
       document.getElementById("StatusWaterpump").textContent =
         value === 1 ? "Terbuka" : "Tertutup";
     });
-
-
 
     var TimeRef = firebase.database().ref("KONTROL");
     TimeRef.on("value", function (snapshot) {
