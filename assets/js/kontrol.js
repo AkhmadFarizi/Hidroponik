@@ -67,15 +67,74 @@ firebase.auth().onAuthStateChanged(function (user) {
 
 
 
-    document.getElementById("pHInput").onchange = function () {
-      console.log("Set pH:", this.value);
-      firebase.database().ref("KONTROL/SetpH").set(this.value);
-    };
-
-    document.getElementById("TDSInput").onchange = function () {
-      console.log("Set TDS:", this.value);
-      firebase.database().ref("KONTROL/SetTDS").set(this.value);
-    };
+    document.getElementById("pHForm").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent form from refreshing the page
+      const pHValue = parseInt(document.getElementById("pHInput").value); // Convert to integer
+  
+      // Show confirmation alert
+      Swal.fire({
+          title: 'Are you sure?',
+          text: `You are about to set the pH value to ${pHValue}.`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, set it!',
+          cancelButtonText: 'Cancel'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Proceed with setting the pH value in the database
+              firebase.database().ref("KONTROL/SetpH").set(pHValue).then(() => {
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'pH Updated!',
+                      text: `pH value has been set to ${pHValue}`,
+                      confirmButtonText: 'OK'
+                  });
+              }).catch(error => {
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Error!',
+                      text: `There was an error setting the pH value: ${error.message}`,
+                      confirmButtonText: 'OK'
+                  });
+              });
+          }
+      });
+    });
+    
+    document.getElementById("TDSForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form from refreshing the page
+        const TDSValue = parseInt(document.getElementById("TDSInput").value); // Convert to integer
+    
+        // Show confirmation alert
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to set the TDS value to ${TDSValue}.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, set it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Proceed with setting the TDS value in the database
+                firebase.database().ref("KONTROL/SetTDS").set(TDSValue).then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'TDS Updated!',
+                        text: `TDS value has been set to ${TDSValue}`,
+                        confirmButtonText: 'OK'
+                    });
+                }).catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: `There was an error setting the TDS value: ${error.message}`,
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
+        });
+    });
+  
 
 
 

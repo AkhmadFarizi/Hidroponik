@@ -186,7 +186,7 @@
 
                     <!-- Content Row -->
                     <div class="row">
-                        <!-- pH Card -->
+                       <!-- pH Card -->
                         <div class="col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
@@ -202,17 +202,20 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <div class="form-group row">
-                                            <label class="form-label" for="pHInput">Set pH</label>
-                                            <div class="col-sm-10">
-                                                <input type="number" id="pHInput" class="form-control" min="4" max="9"/>
+                                        <form id="pHForm">
+                                            <div class="form-group row">
+                                                <label class="form-label" for="pHInput">Set pH</label>
+                                                <div class="col-sm-8">
+                                                    <input type="number" id="pHInput" class="form-control" min="4" max="9"/>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary" id="submitpH">submit</button>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    
+
                         <!-- TDS Card -->
                         <div class="col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
@@ -229,16 +232,20 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <div class="form-group row">
-                                            <label class="form-label" for="TDSInput">Set TDS</label>
-                                            <div class="col-sm-10">
-                                                <input type="number" id="TDSInput" class="form-control" min="200" max="300"/>
+                                        <form id="TDSForm">
+                                            <div class="form-group row">
+                                                <label class="form-label" for="TDSInput">Set TDS</label>
+                                                <div class="col-sm-8">
+                                                    <input type="number" id="TDSInput" class="form-control" min="200" max="2000"/>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary" id="submitTDS">submit</button>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
