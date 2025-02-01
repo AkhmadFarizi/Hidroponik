@@ -47,7 +47,118 @@
         visibility: hidden;
     }
 
+    .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider.kondisi {
+    display: flex;
+    align-items: center;
+    padding: 26px;
+    padding: 0px 0px 0 35px;
+    width: 100px;
+    background-color: #ccc;
+    transition: 0s;
+}
+
+.kondisi label.manual {
+    position: absolute;
+    transform: translate(-1px, -50%);
+    /* width: max-content; */
+    background-color: #ccc;
+    top: 50%;
+    width: 65px;
+    border-radius: 35px;
+    transition: 0s;
+}
+
+.slider:before {
+    z-index: 1;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    /* right: 62px; */
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    padding: 10px;
+}
+
+input:checked + .slider .manual {
+    /* background-color: transparent; */
+    transition: 0.1s;
+    display: none;
+}
+
+input:checked + .slider.kondisi:before {
+    left: 45px;
+}
+
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+    input:checked + .slider {
+    background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+    border-radius: 34px;
+    }
+
+    .slider.round:before {
+    border-radius: 50%;
+    }
+
 </style>
+
 
 <body id="page-top">
     <div id="loadingOverlay">
@@ -245,7 +356,44 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col">
+                            <div class="card card-kontrol">
+                                <div class="card-header text-center"><i class="fa-solid fa-door-open" style="color: #f78400;"></i> Kontrol</div>
+                                <hr style="margin-top: 5px;">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-around">
+                                        <label class="labelcard" style="width: 120px;">Kondisi kontrol</label>
+                                        <label class="switch">
+                                            <input type="checkbox" id="Kontrol">
+                                            <span class="slider kondisi round" style="color: black;">
+                                                Auto
+                                                <label for="" class="manual" style="color: black;">Manual</label>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-around">
+                                        <label>Waterpump</label>
+                                        <label class="switch">
+                                            <input type="checkbox" id="WaterpumpCheckbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <p class="text-center" id="StatusWaterpump">Ascy</p>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between">
+                                        <label>Start</label>
+                                        <input type="time" class="form-control m-2" id="start-time" name="start-time" />
+                                        <label>end</label>
+                                        <input type="time" class="form-control m-2" id="end-time" name="end-time" />
+                                        <button  id="save-btn">Save to Firebase</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
