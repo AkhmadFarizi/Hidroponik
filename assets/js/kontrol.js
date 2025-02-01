@@ -25,8 +25,6 @@ firebase.auth().onAuthStateChanged(function (user) {
     var DBPathMonitoring = "/MONITORING";
     var RefDBMonitoring = firebase.database().ref(DBPathMonitoring);
 
-   
-
     const interval = 1000; // 1 detik
     function fetchData() {
       RefDBMonitoring.on("value", (snapshot) => {

@@ -91,21 +91,155 @@ firebase.auth().onAuthStateChanged(function (user) {
         document.getElementById("TDS").textContent =  TDS + "    ";
         document.getElementById("ARUS").textContent = Arus + "    A"; 
         document.getElementById("Voltage").textContent = Voltage + "    A"; 
-        
-
-        
 
 
         
-
-
-        console.log(jsonData);
         
       })
     }
     setInterval(fetchData, interval);
 
-    logoutButton.addEventListener("click", logout); // Menambahkan event listener ke tombol logout
+    const tanggalInput = document.getElementById("tanggalInput");
+
+      var tanggalFormatted = "";
+
+      tanggalInput.addEventListener("change", function () {
+        const tanggal = new Date(tanggalInput.value);
+        const dd = String(tanggal.getDate()).padStart(2, "0");
+        const mm = String(tanggal.getMonth() + 1).padStart(2, "0");
+        const yyyy = tanggal.getFullYear();
+        tanggalFormatted = `${dd}-${mm}-${yyyy}`;
+        firebase.database().ref("Data/Input/Date").set(tanggalFormatted);
+        location.reload();
+      });
+
+      // Mendapatkan referensi ke database Firebase
+      var database = firebase.database();
+
+      // Path yang akan diambil datanya
+      var refDBInput = database.ref("Data/Input/Date");
+
+        refDBInput.on(
+          "value",
+          function (snapshot) {
+            var data = snapshot.val();
+            
+            
+            const [dd, mm, yyyy] = data.split("-");
+            tanggalInput.value = `${yyyy}-${mm}-${dd}`;
+    
+            var DBPathLog = "history/" + `${dd}-${mm}-${yyyy}`;
+            console.log(DBPathLog);
+            var RefDBLog = firebase.database().ref(DBPathLog);
+    
+            function createTable() {
+              RefDBLog.orderByKey()
+                .limitToLast(1000)
+                .on("child_added", function (snapshot) {
+                  if (snapshot.exists()) {
+                    var jsonData = snapshot.val(); // Mengambil data dari snapshot
+                    var date = jsonData.Date;
+                    var Arus = jsonData.ARUS;
+                    var Hum = jsonData.Hum;
+                    var TDS = jsonData.TDS;
+                    var Temp = jsonData.Temp;
+                    var TempAir = jsonData.TempAIR;
+                    var Voltage =jsonData.VOLTAGE;
+                    var pH = jsonData.pH;
+    
+                    // Mengambil referensi ke elemen tabel
+                    var table = $("#data-table").DataTable();
+     
+                    // Menambahkan data baru ke dalam tabel
+                    table.row
+                      .add([
+                        date,
+                        Temp,
+                        TempAir,
+                        Hum,
+                        pH,
+                        TDS,
+                        Arus,
+                        Voltage,
+                      ])
+                      .draw();
+                  }
+                });
+            }
+    
+            // Memanggil fungsi createTable untuk pertama kali
+            createTable();
+          },
+          function (error) {
+            console.error("Error mengambil data:", error);
+          }
+        );
+
+        var table = $("#data-table").DataTable({
+          responsive: true,
+          order: [[0, "desc"]],
+          // dom: 'Bfrtip', // Add this line to enable Buttons
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  className: 'buttons-excel'
+              },
+              {
+                  extend: 'csvHtml5',
+                  className: 'buttons-csv'
+              },
+              {
+                  extend: 'pdfHtml5',
+                  className: 'buttons-pdf'
+              },
+              {
+                  extend: 'print',
+                  className: 'buttons-print'
+              }
+          ]
+        });
+    
+        $("#btnExcel").on("click", function () {
+          table.button(".buttons-excel").trigger();
+          Swal.fire({
+              position: "center",
+              icon: "success",
+              timer: 2000,
+              timerProgressBar: true,
+              title: "Ekspor Excel Berhasil",
+              showConfirmButton: false,
+          });
+      });
+      
+      $("#btnCsv").on("click", function () {
+          table.button(".buttons-csv").trigger();
+          Swal.fire({
+              position: "center",
+              icon: "success",
+              timer: 2000,
+              timerProgressBar: true,
+              title: "Ekspor CSV Berhasil",
+              showConfirmButton: false,
+          });
+      });
+      
+      $("#btnPDF").on("click", function () {
+          table.button(".buttons-pdf").trigger();
+          Swal.fire({
+              position: "center",
+              icon: "success",
+              timer: 2000,
+              timerProgressBar: true,
+              title: "Ekspor PDF Berhasil",
+              showConfirmButton: false,
+          });
+      });
+      
+      $("#btnPrint").on("click", function () {
+          table.button(".buttons-print").trigger();
+      });
+
+    logoutButton.addEventLisgeIntener("click", logout); // Menambahkan event listener ke tombol logout
   } else {
     // Pengguna tidak sedang login, alihkan ke halaman login
 
