@@ -2,13 +2,14 @@
 
 // Konfigurasi Firebase bisa dilihat di icon gear-> Project Setting
 const firebaseConfig = {
-  apiKey: "AIzaSyBdSkkP9_REoiETr511VoNXPnAmdrRBwKw",
-  authDomain: "monitoring-294c3.firebaseapp.com",
-  databaseURL: "https://monitoring-294c3-default-rtdb.firebaseio.com",
-  projectId: "monitoring-294c3",
-  storageBucket: "monitoring-294c3.appspot.com",
-  messagingSenderId: "492002379636",
-  appId: "1:492002379636:web:bbe14904a989e0431e4e21"
+  apiKey: "AIzaSyAvrrQOW_D_wIrXKk8PaFHnbBmVxqY7sr8",
+  authDomain: "hydroponic-9dad9.firebaseapp.com",
+  databaseURL: "https://hydroponic-9dad9-default-rtdb.firebaseio.com",
+  projectId: "hydroponic-9dad9",
+  storageBucket: "hydroponic-9dad9.firebasestorage.app",
+  messagingSenderId: "789295709091",
+  appId: "1:789295709091:web:fd6e615f83dafec9c27816",
+  measurementId: "G-KTKX1BKF6R"
 };
 
 // Inisialisasi Firebase

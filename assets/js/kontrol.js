@@ -1,12 +1,15 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyBdSkkP9_REoiETr511VoNXPnAmdrRBwKw",
-  authDomain: "monitoring-294c3.firebaseapp.com",
-  databaseURL: "https://monitoring-294c3-default-rtdb.firebaseio.com",
-  projectId: "monitoring-294c3",
-  storageBucket: "monitoring-294c3.appspot.com",
-  messagingSenderId: "492002379636",
-  appId: "1:492002379636:web:bbe14904a989e0431e4e21",
+  apiKey: "AIzaSyAvrrQOW_D_wIrXKk8PaFHnbBmVxqY7sr8",
+  authDomain: "hydroponic-9dad9.firebaseapp.com",
+  databaseURL: "https://hydroponic-9dad9-default-rtdb.firebaseio.com",
+  projectId: "hydroponic-9dad9",
+  storageBucket: "hydroponic-9dad9.firebasestorage.app",
+  messagingSenderId: "789295709091",
+  appId: "1:789295709091:web:fd6e615f83dafec9c27816",
+  measurementId: "G-KTKX1BKF6R"
 };
+
+ 
 var logoutButton = document.getElementById("logoutButton");
 
 // Inisialisasi Firebase
@@ -44,8 +47,8 @@ firebase.auth().onAuthStateChanged(function (user) {
         var TDS = Number(jsonData.TDS).toFixed(2);
         var pH = jsonData.pH;
 
-        document.getElementById("pH").textContent = pH + "    pph";
-        document.getElementById("TDS").textContent = TDS + "    ";
+        document.getElementById("pH").textContent = pH + "    ";
+        document.getElementById("TDS").textContent = TDS + "   ppm";
       });
     }
     setInterval(fetchData, interval);
@@ -167,7 +170,7 @@ firebase.auth().onAuthStateChanged(function (user) {
       var value = snapshot.val();
       document.getElementById("WaterpumpCheckbox").checked = value === 1;
       document.getElementById("StatusWaterpump").textContent =
-        value === 1 ? "Terbuka" : "Tertutup";
+        value === 1 ? "ON" : "OFF";
     });
 
     var TimeRef = firebase.database().ref("KONTROL");
